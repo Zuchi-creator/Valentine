@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Khaliun ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Sans MS", cursive;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffd6e0, #fff0f5);
+}
+
+/* Loading Screen */
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #fff0f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #ff4d6d;
+    z-index: 1000;
+}
+
+/* Main Content */
+.container {
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #ff4d6d;
+    padding: 20px;
+}
+
+button {
+    font-size: 1.3rem;
+    padding: 15px 25px;
+    margin: 15px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+}
+
+#noBtn {
+    background-color: #cccccc;
+    position: absolute;
+}
+
+.cat {
+    position: absolute;
+    width: 80px;
+    animation: float 10s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(110vh); }
+    100% { transform: translateY(-10vh); }
+}
+
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 2rem;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh); opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: explode 2s linear forwards;
+}
+
+@keyframes explode {
+    to {
+        transform: translate(var(--x), var(--y));
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">Preparing destiny for Khaliun... ❤️</div>
+
+<div class="container" id="main">
+    <h1>Khaliun, will you be my Valentine? 🐱❤️</h1>
+    <div>
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😼</button>
+    </div>
+</div>
+
+<script>
+setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("main").style.display = "flex";
+    createCats();
+}, 2500);
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+let yesSize = 1.3;
+let noSize = 1.3;
+
+noBtn.addEventListener("mouseover", () => {
+    yesSize += 0.2;
+    yesBtn.style.fontSize = yesSize + "rem";
+
+    noSize -= 0.1;
+    if(noSize < 0.4) noSize = 0.4;
+    noBtn.style.fontSize = noSize + "rem";
+
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+noBtn.addEventListener("click", () => {
+    alert("You cannot escape destiny 😼");
+});
+
+yesBtn.addEventListener("click", () => {
+    document.body.innerHTML = `
+        <div style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#fff0f5;">
+            <h1 style="color:#ff4d6d;">YAY KHALLIUN!!! 💕🐾</h1>
+            <h2>You cannot escape destiny ❤️</h2>
+        </div>
+    `;
+    confettiExplosion();
+    heartRain();
+});
+
+function createCats() {
+    setInterval(() => {
+        const cat = document.createElement("img");
+        cat.src = "https://i.imgur.com/JIX9XHh.png";
+        cat.classList.add("cat");
+        cat.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(cat);
+        setTimeout(() => cat.remove(), 10000);
+    }, 1200);
+}
+
+function heartRain() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }, 300);
+}
+
+function confettiExplosion() {
+    for(let i = 0; i < 150; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.backgroundColor = 
+            ["#ff4d6d","#ffd6e0","#ff8fa3","#ffb3c6"][Math.floor(Math.random()*4)];
+        confetti.style.left = window.innerWidth/2 + "px";
+        confetti.style.top = window.innerHeight/2 + "px";
+        confetti.style.setProperty("--x", (Math.random()*600-300)+"px");
+        confetti.style.setProperty("--y", (Math.random()*600-300)+"px");
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2000);
+    }
+}
+</script>
+
+</body>
+</html>
